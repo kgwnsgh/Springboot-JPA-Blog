@@ -26,6 +26,7 @@
 	</dependency>
 	 -->
 	<!-- JSP 템플릿 엔진 -->
+	<!-- JSP 파일을 읽어준다 -->
 	<dependency>
 	  <groupId>org.apache.tomcat.embed</groupId>
 	  <artifactId>tomcat-embed-jasper</artifactId>
