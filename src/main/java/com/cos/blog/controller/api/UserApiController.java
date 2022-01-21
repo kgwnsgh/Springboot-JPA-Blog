@@ -19,8 +19,7 @@ public class UserApiController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private HttpSession session;
+	
 	
 	@PostMapping("/api/user")
 	public ResponseDto<Integer> save(@RequestBody User user) { // username, password, email
@@ -31,15 +30,18 @@ public class UserApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value() , 1); // 자바오브젝트를 JSON으로 변환해서 리턴
 	}
 	
-	//다음시간에 스프링 시큐리티 이용해서 로그인
-	@PostMapping("/api/user/login")
-	public ResponseDto<Integer> login(@RequestBody User user) {
-		System.out.println("UserApiController : login 호출됨");
-		User principal = userService.로그인(user); // principal (접근주체)
-		
-		if(principal != null) {
-			session.setAttribute("principal", principal);
-		}
-		return new ResponseDto<Integer>(HttpStatus.OK.value() , 1);
-	}
+	
+//	@Autowired
+//	private HttpSession session;
+//	//다음시간에 스프링 시큐리티 이용해서 로그인
+//	@PostMapping("/api/user/login")
+//	public ResponseDto<Integer> login(@RequestBody User user) {
+//		System.out.println("UserApiController : login 호출됨");
+//		User principal = userService.로그인(user); // principal (접근주체)
+//		
+//		if(principal != null) {
+//			session.setAttribute("principal", principal);
+//		}
+//		return new ResponseDto<Integer>(HttpStatus.OK.value() , 1);
+//	}
 }
