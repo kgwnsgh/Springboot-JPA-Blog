@@ -71,11 +71,11 @@ public class DummyControllerTest {
 	// 한페이지당 2건의 데이터를 리턴받아 볼 예정
 	// 아이디를 2건씩 최근 순서로 가지고 온다
 	@GetMapping("/dummy/user")
-	public List<User> pegeList(@PageableDefault(size=2, sort="id",direction = Sort.Direction.DESC) Pageable pageable) {
+	public Page<User> pegeList(@PageableDefault(size=2, sort="id",direction = Sort.Direction.DESC) Pageable pageable) {
 		Page<User> pagingUsers = userRepository.findAll(pageable);
 		
 		List<User> users = pagingUsers.getContent();
-		return users;
+		return pagingUsers;
 	}
 	
 	//{id} 주소로 파라메터를 전달 받을수 있음
