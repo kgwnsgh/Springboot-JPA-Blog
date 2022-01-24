@@ -45,6 +45,7 @@ let index = {
 				// alert("user의 save함수 호출됨");
 				let data = { // id값을 찾아서 호출
 						id: $("#id").val(),
+						username: $("#username").val(),
 						password: $("#password").val(),
 						email: $("#email").val(),
 				};
