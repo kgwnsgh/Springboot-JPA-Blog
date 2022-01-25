@@ -51,7 +51,7 @@ public class Reply {
 	@CreationTimestamp // 시간을 자동으로 작성
 	private Timestamp createDate;
 }
-
+	
 
 //EGER 전략은 정보를 처음부터 전부 요청해서 다 가지고  오는 방법이고
 // LEZY 전략은 정보를 요청하면 필요한 정보를 가지고 오는 방법이다
