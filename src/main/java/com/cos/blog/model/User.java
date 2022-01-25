@@ -33,7 +33,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //프로젝트에서 연결된 DB의 넘ㅁ버링 전략을 따라간다
 	private int id; //시퀀스, auto_increment
 	
-	@Column(nullable = false, length = 30, unique = true) // nullable = false를 통해 아이디에 null 값이 들어가지 않게 하고 최대 글자수는 30글자로 한다
+	@Column(nullable = false, length = 100, unique = true) // nullable = false를 통해 아이디에 null 값이 들어가지 않게 하고 최대 글자수는 30글자로 한다
 	private String username; // 아이디
 	
 	@Column(nullable = false, length = 100) // 해쉬를 통해 비밀번호 암호화
@@ -46,6 +46,8 @@ public class User {
 	@Enumerated(EnumType.STRING) // 해당 Enum이 String임을 확인 시켜줌
 	private RoleType role; // Enum을 스는게 좋다/ ADMIN, USER
 	//private Enum role;
+	
+	private String oauth; // kakao, google, 로그인을 나눠줌
 	
 	@CreationTimestamp // 시간을 자동으로 입력
 	private Timestamp createDate; // java.sql 타임스탬프 사용
