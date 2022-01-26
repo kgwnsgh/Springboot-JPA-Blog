@@ -9,11 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
 import com.cos.blog.repository.ReplyRepository;
+import com.cos.blog.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,13 +23,16 @@ import lombok.RequiredArgsConstructor;
 //서비스는 여러개의 트렌젝션을 하나로 묶어주는 역활을 한다
 //스프링이 컴포넌트 스캔을 통해서 Bean에 등로을 해줌. ioC를 해준다.
 @Service
+@RequiredArgsConstructor
 public class BoardService {
-
-	@Autowired
-	private BoardRepository boardRepository;
 	
-	@Autowired
-	private ReplyRepository replyRepository;
+	private final BoardRepository boardRepository;
+	private final ReplyRepository replyRepository;
+	
+//	public BoardService(BoardRepository bRepo, ReplyRepository rRepo) {
+//		this.boardRepository = bRepo;
+//		this.replyRepository = rRepo;
+//	}
 	
 	@Transactional
 	public void 글쓰기(Board board, User user) { // title, content
@@ -66,15 +71,14 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
-		
-		Board board = boardRepository.findById(boardId).orElseThrow(()->{
-			return new IllegalArgumentException("댓글 쓰기 실패: 게시글 id를 찾을 수 없습니다.");
-		}); // 영속화 완료;
-		
-		requestReply.setUser(user); // user에 대한 정보를 reply에 담는다 /오브젝트 
-		requestReply.setBoard(board); // board에 대한 정보를 reply에 담는다 /오브젝트
-		
-		replyRepository.save(requestReply); // 담긴정보를 저장
+	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
+		int result = replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
+		System.out.println("BoardService : "+result);
 	}
+	
+	@Transactional
+	public void 댓글삭제(int replyId) {
+		replyRepository.deleteById(replyId);
+	}
+	
 }

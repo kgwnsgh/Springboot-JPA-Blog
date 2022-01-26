@@ -3,6 +3,7 @@ package com.cos.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,7 +52,7 @@ public class Board {
 	@JoinColumn(name="userId")
 	private User user; // DB는 오브젝트를 저장할 수 없다. FK,자바는 오브젝트를 저장할수 있다.
 	
-	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // mappedBy 연관관계의 주인이 아닌(난 FK가 아니
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) // mappedBy 연관관계의 주인이 아닌(난 FK가 아니
 	@JsonIgnoreProperties({"board"}) // 만약 board가 호출될때 reply 안에 board 호출이 한번더 일어나는것을 방지 / 왜안되지??
 	@OrderBy("id desc")
 	private List<Reply> replys;

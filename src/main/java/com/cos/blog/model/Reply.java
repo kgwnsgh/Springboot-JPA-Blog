@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,6 +52,12 @@ public class Reply {
 	
 	@CreationTimestamp // 시간을 자동으로 작성
 	private Timestamp createDate;
+
+	@Override
+	public String toString() {
+		return "Reply [id=" + id + ", content=" + content + ", board=" + board + ", user=" + user + ", reply=" + reply
+				+ ", createDate=" + createDate + "]";
+	}
 }
 	
 

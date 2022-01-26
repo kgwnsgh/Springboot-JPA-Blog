@@ -20,7 +20,7 @@ spring:
     password: cos1234
     
   jpa:
-    open-in-view: true
+    open-in-view: false
     hibernate:
       ddl-auto: update
 # 최초에 생성에만 create를 하고 이후에는 update로 바꿔주어야한다 안그러면 반복해서 테이블 생성
