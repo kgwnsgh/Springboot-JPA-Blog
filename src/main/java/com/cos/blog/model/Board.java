@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -52,6 +53,7 @@ public class Board {
 	
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // mappedBy 연관관계의 주인이 아닌(난 FK가 아니
 	@JsonIgnoreProperties({"board"}) // 만약 board가 호출될때 reply 안에 board 호출이 한번더 일어나는것을 방지 / 왜안되지??
+	@OrderBy("id desc")
 	private List<Reply> replys;
 	
 	@CreationTimestamp // 데이터가 insert 혹은 update 될때 자동으로 시간이 추가됨

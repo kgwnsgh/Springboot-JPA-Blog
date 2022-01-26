@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
-
+import com.cos.blog.repository.ReplyRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +25,9 @@ public class BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository;
+	
+	@Autowired
+	private ReplyRepository replyRepository;
 	
 	@Transactional
 	public void 글쓰기(Board board, User user) { // title, content
@@ -59,5 +63,18 @@ public class BoardService {
 		board.setTitle(requesBoard.getTitle());
 		board.setContent(requesBoard.getContent());
 		// 해당 함수 종료시 (Service가 종료될 때) 트렌잭션이 종료 됩니다.
+	}
+	
+	@Transactional
+	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
+		
+		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+			return new IllegalArgumentException("댓글 쓰기 실패: 게시글 id를 찾을 수 없습니다.");
+		}); // 영속화 완료;
+		
+		requestReply.setUser(user); // user에 대한 정보를 reply에 담는다 /오브젝트 
+		requestReply.setBoard(board); // board에 대한 정보를 reply에 담는다 /오브젝트
+		
+		replyRepository.save(requestReply); // 담긴정보를 저장
 	}
 }
